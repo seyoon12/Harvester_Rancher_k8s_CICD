@@ -1,4 +1,5 @@
 #  Rancher/Harvester 설치 및 Fleet CICD
+가이드 형식이기에 CODE 올리지 않고 README에 설치 가이드로 올렸습니다.
 
 ---
 
