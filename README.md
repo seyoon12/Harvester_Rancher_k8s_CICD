@@ -56,7 +56,7 @@ Rancher와 Harvester 설치 및 연동, Fleet을 활용한 GitOps 기반 CI/CD �
 
 ### 2.2 Harvester 설치
 ![그림 1. Harvester 초기 설치 화면_01](https://github.com/user-attachments/assets/e76bac57-447c-4743-bc4c-df42548cb314)
-
+[ 그림 1. Havester 초기 설치 화면_01]
 
 ## 3. Rancher 설치
 
