@@ -556,10 +556,12 @@ spec:
   }
 }
 ```
-
-###
+### 3.4 Rancher CD
+### 그림 19. Fleet repo 설정
 ![image](https://github.com/user-attachments/assets/dff630e1-b812-47c0-9804-93f1e7c27791)
 
+### 그림 20. Fleet repo 설정
+![image](https://github.com/user-attachments/assets/dff630e1-b812-47c0-9804-93f1e7c27791)
 
 
 
