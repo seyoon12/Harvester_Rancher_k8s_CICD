@@ -1,5 +1,4 @@
-# SA사업그룹 Rancher/Harvester 기본 가이드 V1.0  
-2025.05.11
+#  Rancher/Harvester 설치 및 Fleet CICD
 
 ---
 
