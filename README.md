@@ -78,6 +78,12 @@ Rancher와 Harvester 설치 및 연동, Fleet을 활용한 GitOps 기반 CI/CD �
 
 ### 3.1 RKE2 설치 (Master)
 ```bash
+개인 컴퓨터 메모리가 16Gb이하일 경우 
+1. Rancher 4gb, Harvester 8을 주기 때문에 Harvester에서 OOM이 날 가능성이 있어 저는 Harvester는 VM,
+Rancher는 클라우드에 올려 연동하였습니다.
+```
+
+```bash
 hostnamectl set-hostname master
 swapoff -a
 systemctl disable --now ufw
@@ -87,3 +93,4 @@ systemctl enable rke2-server
 systemctl restart rke2-server
 mkdir -p ~/.kube
 cp /etc/rancher/rke2/rke2.yaml ~/.kube/config
+```
