@@ -77,11 +77,9 @@ Rancher와 Harvester 설치 및 연동, Fleet을 활용한 GitOps 기반 CI/CD �
 ## 3. Rancher 설치
 
 ### 3.1 RKE2 설치 (Master)
-```bash
 개인 컴퓨터 메모리가 16Gb이하일 경우 
 1. Rancher 4gb, Harvester 8을 주기 때문에 Harvester에서 OOM이 날 가능성이 있어 저는 Harvester는 VM,
 Rancher는 클라우드에 올려 연동하였습니다.
-```
 
 ```bash
 hostnamectl set-hostname master
@@ -94,3 +92,88 @@ systemctl restart rke2-server
 mkdir -p ~/.kube
 cp /etc/rancher/rke2/rke2.yaml ~/.kube/config
 ```
+
+```bash
+# Master vm
+hostnamectl set-hostname master
+swapoff -a
+sudo systemctl disable --now ufw
+sudo systemctl disable --now apparmor.service
+curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="server" sh –
+systemctl enable rke2-server
+systemctl restart rke2-server
+systemctl status rke2-server
+mkdir ~/.kube/
+cp /etc/rancher/rke2/rke2.yaml ~/.kube/config
+export PATH=$PATH:/var/lib/rancher/rke2/bin/
+echo 'export PATH=/usr/local/bin:/var/lib/rancher/rke2/bin:$PATH' >> ~/.bashrc
+echo 'alias k="kubectl"' >> ~/.bashrc
+echo 'alias kns="kubectl config set-context --current --namespace"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+```bash
+# Slave VM
+hostnamectl set-hostname slave01
+swapoff -a
+sudo systemctl disable --now ufw
+sudo systemctl disable --now apparmor.service
+curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sh –
+mkdir -p /etc/rancher/rke2/
+vi /etc/rancher/rke2/config.yaml
+# Master vm의 cat /var/lib/rancher/rke2/server/node-token값 복사 붙여넣은 후 systemctl restart rke2-agent
+```
+
+```bash
+# 예시
+server: https://10.0.2.15:9345
+token: K10e133e33123a042c358b3db0e92ff14a7c61dd77fd106438bb7f9355d0100c0ce::server:0ccc5d476c0f508c04f59ec0e7163755
+```
+
+```bash
+# OPTION 01 - Rancher를 VM에 설치 시
+# Master VM
+# cert-manager 설치
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.4/cert-manager.yaml
+kubectl -n cert-manager rollout status deploy/cert-manager
+kubectl get pods --namespace cert-manager
+kubectl -n cert-manager rollout status deploy/cert-manager-webhook
+
+# helm 설치
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# rancher 설치
+kubectl create namespace cattle-system
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+helm repo update
+helm search repo rancher-stable
+helm install rancher rancher-stable/rancher \
+  --namespace cattle-system \
+  --set hostname=rancher.test.com \ 
+  --set bootstrapPassword=admin \
+  --set ingress.tls.source=letsEncrypt \
+  --set letsEncrypt.email=wntpqhd1326@gmail.com \
+  --set letsEncrypt.ingress.class=nginx
+```
+
+```bash
+# OPTION 02 - Rancher를 Cloud에 설치 시
+# Master VM
+# cert-manager 설치
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.4/cert-manager.yaml
+kubectl -n cert-manager rollout status deploy/cert-manager
+kubectl get pods --namespace cert-manager
+kubectl -n cert-manager rollout status deploy/cert-manager-webhook
+
+# helm 설치
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# domain 설정 (무료)
+https://www.duckdns.org/
+```
+### 그림 7. duckdns 화면
+![image](https://github.com/user-attachments/assets/c057573e-d313-474a-bcb1-4bae37d833a9)
