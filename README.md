@@ -41,25 +41,38 @@ Rancher와 Harvester 설치 및 연동, Fleet을 활용한 GitOps 기반 CI/CD �
 - Harvester ISO: v1.5.0  
 - VM 스펙: CPU 4, MEM 8500MB, Disk 250GB  
 - Rancher VM 스펙: CPU 4, MEM 4192MB
-
----
-
-## 2. Harvester 설치
-
+- 
 ### 2.1 VMware 설정
 - [Harvester ISO 다운로드](https://releases.rancher.com/harvester/v1.5.0/harvester-v1.5.0-amd64.iso)
-
 주의사항
 - VirtualBox 미지원
 - 최소 12GB RAM 필요
 - VMware에서 VM 생성 시 사양 참고
 
-### 2.2 Harvester 설치
+---
+
+## 2. Harvester 설치
+
 ### 그림 1. Harvester 초기 설치 화면_01
 
 ![그림 1. Harvester 초기 설치 화면_01](https://github.com/user-attachments/assets/e76bac57-447c-4743-bc4c-df42548cb314)
 
-[그림 1. Harvester 초기 설치 화면_01]
+### 그림 2. Harvester 초기 설치 화면_02
+
+![image](https://github.com/user-attachments/assets/ebed868e-e7e1-411c-938f-49a6af3ba5d2)
+
+### 그림 3. Harvester 초기 설치 화면_03
+![image](https://github.com/user-attachments/assets/41d437f8-eba8-4ebe-adb0-180e0d24b4c1)
+
+### 그림 4. Harvester 초기 설치 화면_04
+![image](https://github.com/user-attachments/assets/41d437f8-eba8-4ebe-adb0-180e0d24b4c1)
+
+### 그림 5. Harvester 초기 설치 화면_05
+![image](https://github.com/user-attachments/assets/3d972742-310b-487a-90d4-e737889b8b09)
+
+### 그림 6. Harvester 초기 설치 화면_06
+![image](https://github.com/user-attachments/assets/a29347af-9f2f-4194-8a35-f98acdec7965)
+
 
 ## 3. Rancher 설치
 
